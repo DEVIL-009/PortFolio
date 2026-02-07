@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22d3ee;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Modern geometric 'D' for Deva -->
+  <path d="M 25 15 L 55 15 C 80 15 90 35 90 50 C 90 65 80 85 55 85 L 25 85 Z M 40 30 L 40 70 L 55 70 C 70 70 75 60 75 50 C 75 40 70 30 55 30 Z" fill="url(#grad)" />
+</svg>
