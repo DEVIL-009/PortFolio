@@ -54,86 +54,96 @@ const Navbar = () => {
     <>
       <motion.nav
         initial={{ y: -100 }}
-        animate={{
-          y: 0,
-          width: isScrolled ? 'auto' : '100%',
-          top: isScrolled ? '1rem' : '0',
-          borderRadius: isScrolled ? '9999px' : '0',
-          backgroundColor: isScrolled ? 'rgba(var(--background), 0.8)' : 'transparent',
-          backdropFilter: isScrolled ? 'blur(12px)' : 'none',
-          border: isScrolled ? '1px solid rgba(255,255,255,0.1)' : 'none',
-          padding: isScrolled ? '0.75rem 1.5rem' : '1.5rem 2rem',
-        }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className={`fixed left-1/2 -translate-x-1/2 z-50 flex items-center justify-between transition-all duration-300 ${isScrolled
-            ? 'glass-card shadow-lg max-w-5xl'
-            : 'max-w-[100vw]'
+        className={`fixed z-50 transition-all duration-300 ${isScrolled
+          ? 'top-4 left-0 right-0 mx-auto w-[90%] md:w-fit max-w-[95vw] rounded-full bg-background/20 backdrop-blur-sm border border-white/5'
+          : 'top-0 left-0 right-0 w-full'
           }`}
-        style={{
-          backgroundColor: isScrolled ? 'hsl(var(--background) / 0.8)' : 'transparent',
-        }}
       >
-        <button
-          onClick={() => handleNavClick('/')}
-          className={`font-display font-bold text-foreground transition-all duration-300 ${isScrolled ? 'text-xl mr-8' : 'text-2xl tracking-widest uppercase'
-            }`}
-        >
-          Deva Nandan S
-        </button>
+        <div className={`flex items-center justify-between px-4 md:px-8 py-6 md:py-8 transition-all duration-300 ${isScrolled ? 'px-8 py-4' : ''
+          }`}>
+          <button
+            onClick={() => handleNavClick('/')}
+            className={`font-display font-bold text-foreground flex-shrink-0 transition-all duration-300 whitespace-nowrap flex items-center ${isScrolled ? 'text-sm' : 'text-lg md:text-xl tracking-widest uppercase'
+              }`}
+          >
+            <span className={`rounded-full bg-primary ${isScrolled ? 'w-1.5 h-1.5 mr-1.5' : 'w-2 h-2 mr-2'}`}></span>
+            Deva Nandan S
+          </button>
 
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => handleNavClick(item.href)}
-              className={`text-sm font-medium transition-colors duration-200 hover:text-primary ${isScrolled ? 'text-muted-foreground' : 'text-foreground/80 uppercase tracking-wide'
-                }`}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
+          {!isScrolled && (
+            <div className="hidden md:flex items-center gap-10 mx-auto">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-sm font-medium text-foreground/80 uppercase tracking-wide hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          )}
 
-        <div className="hidden md:flex items-center gap-4 ml-8">
-          <div className="flex items-center gap-3 border-r border-border/50 pr-4">
+          {isScrolled && (
+            <div className="hidden md:flex items-center gap-7 ml-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-xs font-medium text-foreground/70 hover:text-primary transition-colors whitespace-nowrap"
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className={`hidden md:flex items-center transition-all duration-300 ${isScrolled
+            ? 'gap-4 ml-6 pl-6 border-l border-white/10'
+            : 'gap-4 ml-auto'
+            }`}>
             <a
               href="https://linkedin.com/in/deva-nandan-s"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground/60 hover:text-primary transition-colors flex-shrink-0"
             >
-              <Linkedin size={18} />
+              <Linkedin size={isScrolled ? 16 : 18} />
             </a>
             <a
               href="https://github.com/Darknight4433"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground/60 hover:text-primary transition-colors flex-shrink-0"
             >
-              <Github size={18} />
+              <Github size={isScrolled ? 16 : 18} />
             </a>
             <button
               onClick={handleCopyDiscord}
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground/60 hover:text-primary transition-colors flex-shrink-0"
               title="Copy Discord Username"
             >
-              <Gamepad2 size={18} />
+              <Gamepad2 size={isScrolled ? 16 : 18} />
             </button>
           </div>
           <button
             onClick={() => handleNavClick('/#contact')}
-            className={`btn-primary text-sm ${isScrolled ? 'px-4 py-2' : 'px-6 py-2.5'}`}
+            className={`hidden md:flex transition-all duration-300 border border-primary/50 hover:bg-primary/10 hover:border-primary rounded-full items-center gap-2 ${isScrolled ? 'text-sm px-5 py-2' : 'text-sm px-6 py-2.5'
+              }`}
           >
+            <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
             Let's Work
           </button>
-        </div>
 
-        <button
-          className="md:hidden text-foreground p-2 ml-auto"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            className="md:hidden text-foreground p-2 ml-auto"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </motion.nav>
 
       <AnimatePresence>
