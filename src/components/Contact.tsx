@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Send, Check } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, Instagram, Send, Check } from 'lucide-react';
 import { useState } from 'react';
 import CursorParticles from './CursorParticles';
 import { toast } from 'sonner';
@@ -68,6 +68,7 @@ const Contact = () => {
     { icon: Mail, title: 'Email', value: 'devanandan170@gmail.com', href: 'mailto:devanandan170@gmail.com' },
     { icon: MapPin, title: 'Location', value: 'Kerala, India', href: null },
     { icon: Github, title: 'GitHub', value: 'github.com/DEVIL-009', href: 'https://github.com/DEVIL-009' },
+    { icon: Instagram, title: 'Instagram', value: 'instagram.com/deva_nandan_09', href: 'https://www.instagram.com/deva_nandan_09/' },
     { icon: Linkedin, title: 'LinkedIn', value: 'linkedin.com/in/deva-nandan-s', href: 'https://www.linkedin.com/in/deva-nandan-s-72038438b/' },
   ];
 
