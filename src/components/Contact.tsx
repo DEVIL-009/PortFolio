@@ -25,9 +25,11 @@ const Contact = () => {
         'template_7l5yorn',
         {
           from_name: formData.name,
-          from_email: formData.email,
+          from_email: formData.email, // Standard name
+          email: formData.email,      // Common alternative
+          reply_to: formData.email,   // Best practice for senders
           message: formData.message,
-          to_email: 'devanandan170@gmail.com', // Updated to your correct email
+          to_email: 'devanandan170@gmail.com',
         },
         'D3HJLTYaG-DRN6-0O' // Your new EmailJS Public Key
       ).then((response) => {
