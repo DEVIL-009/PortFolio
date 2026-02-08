@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, GitBranch, Users } from 'lucide-react';
+import { Cpu, Zap, Activity, HardDrive } from 'lucide-react';
 
 const techStack = [
   'Arduino', 'ESP32/ESP8266', 'Raspberry Pi', 'C/C++', 'Python',
@@ -7,9 +7,9 @@ const techStack = [
 ];
 
 const stats = [
-  { icon: GitBranch, value: '60+', label: 'Repositories' },
-  { icon: Users, value: '10+', label: 'Domains' },
-  { icon: Github, value: 'Active', label: 'Contributor' },
+  { icon: Cpu, value: '30+', label: 'Prototypes' },
+  { icon: Activity, value: '15+', label: 'IoT Nodes' },
+  { icon: HardDrive, value: '5+', label: 'PCB Designs' },
 ];
 
 const TechStack = () => {
@@ -31,7 +31,7 @@ const TechStack = () => {
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
-          {/* GitHub Stats */}
+          {/* Hardware Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,14 +40,14 @@ const TechStack = () => {
           >
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                <Github className="w-6 h-6" />
+                <Cpu className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-display text-xl font-semibold text-foreground">
-                  GitHub Profile
+                  Hardware Experience
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Open-source contributions and personal projects
+                  Physical prototyping and embedded systems deployment
                 </p>
               </div>
             </div>
