@@ -24,10 +24,13 @@ const Contact = () => {
         'service_t2chb2a',
         'template_7l5yorn',
         {
-          from_name: formData.name,
-          from_email: formData.email, // Standard name
-          email: formData.email,      // Common alternative
-          reply_to: formData.email,   // Best practice for senders
+          from_name: formData.name, // Existing key
+          user_name: formData.name, // Added common key
+          name: formData.name,      // Added common key
+          from_email: formData.email,
+          user_email: formData.email, // Added common key
+          email: formData.email,
+          reply_to: formData.email,
           message: formData.message,
           to_email: 'devanandan170@gmail.com',
         },
