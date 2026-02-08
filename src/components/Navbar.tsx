@@ -134,7 +134,7 @@ const Navbar = () => {
               }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            Let's Work
+            Let's Connect
           </button>
 
           <button
@@ -202,7 +202,7 @@ const Navbar = () => {
                 onClick={() => handleNavClick('/#contact')}
                 className="btn-primary text-lg mt-4 px-8 py-3"
               >
-                Let's Work
+                Let's Connect
               </motion.button>
             </div>
           </motion.div>
