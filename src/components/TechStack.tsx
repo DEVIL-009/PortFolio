@@ -7,9 +7,9 @@ const techStack = [
 ];
 
 const stats = [
-  { icon: Cpu, value: '30+', label: 'Prototypes' },
-  { icon: Activity, value: '15+', label: 'IoT Nodes' },
-  { icon: HardDrive, value: '5+', label: 'PCB Designs' },
+  { icon: Cpu, value: '45+', label: 'Hardware Builds' },
+  { icon: Activity, value: '25+', label: 'IoT Systems' },
+  { icon: HardDrive, value: '12+', label: 'Circuit Designs' },
 ];
 
 const TechStack = () => {
