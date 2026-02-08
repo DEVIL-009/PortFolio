@@ -81,7 +81,6 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
     "jsdom": "^20.0.3",
-    "lovable-tagger": "^1.1.13",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
@@ -89,7 +88,7 @@
     "vite": "^5.4.19",
     "vitest": "^3.2.4"
   },
-  "description": "**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID",
+  "description": "Personal portfolio of Deva Nandan S., Student Roboticist and Embedded Systems Developer.",
   "main": "eslint.config.js",
   "repository": {
     "type": "git",
