@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Instagram, Send, Check } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, Instagram, Send, Check, Gamepad2 } from 'lucide-react';
 import { useState } from 'react';
 import CursorParticles from './CursorParticles';
 import { toast } from 'sonner';
@@ -70,6 +70,7 @@ const Contact = () => {
     { icon: Github, title: 'GitHub', value: 'github.com/DEVIL-009', href: 'https://github.com/DEVIL-009' },
     { icon: Instagram, title: 'Instagram', value: 'instagram.com/deva_nandan_09', href: 'https://www.instagram.com/deva_nandan_09/' },
     { icon: Linkedin, title: 'LinkedIn', value: 'linkedin.com/in/deva-nandan-s', href: 'https://www.linkedin.com/in/deva-nandan-s-72038438b/' },
+    { icon: Gamepad2, title: 'Discord', value: 'deva_nandan_09', href: '#', action: 'copy' },
   ];
 
   return (
@@ -111,34 +112,31 @@ const Contact = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="glass-card p-5 flex items-center gap-4 hover-lift group"
-                  >
-                    <div className="p-3 rounded-xl bg-secondary text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-colors duration-300">
-                      <item.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground text-sm">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm group-hover:text-primary transition-colors duration-300">
-                        {item.value}
-                      </p>
-                    </div>
-                  </a>
-                ) : (
-                  <div className="glass-card p-5 flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-secondary text-muted-foreground">
-                      <item.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground text-sm">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.value}</p>
-                    </div>
+                <a
+                  href={item.href || '#'}
+                  onClick={(e) => {
+                    if (item.action === 'copy') {
+                      e.preventDefault();
+                      navigator.clipboard.writeText(item.value);
+                      toast.success(`${item.title} username copied!`);
+                    } else if (!item.href) {
+                      e.preventDefault();
+                    }
+                  }}
+                  target={item.action === 'copy' || !item.href ? '_self' : '_blank'}
+                  rel={item.action === 'copy' || !item.href ? '' : 'noopener noreferrer'}
+                  className={`glass-card p-5 flex items-center gap-4 hover-lift group ${item.href || item.action === 'copy' ? 'cursor-pointer' : 'cursor-default'}`}
+                >
+                  <div className="p-3 rounded-xl bg-secondary text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-colors duration-300">
+                    <item.icon className="w-5 h-5" />
                   </div>
-                )}
+                  <div>
+                    <h3 className="font-medium text-foreground text-sm">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm group-hover:text-primary transition-colors duration-300 break-all">
+                      {item.value}
+                    </p>
+                  </div>
+                </a>
               </motion.div>
             ))}
           </motion.div>

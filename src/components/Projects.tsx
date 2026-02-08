@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Shield, Bot, Sun, Zap, Cloud, Thermometer, Droplets, Brain } from 'lucide-react';
+import { ExternalLink, Github, Shield, Bot, Sun, Zap, Cloud, Thermometer, Droplets } from 'lucide-react';
 
 const projects = [
   {
@@ -8,6 +8,7 @@ const projects = [
     description: 'A hardware-software hybrid reporting system featuring physical kiosk prototypes for anonymous input, ensuring secure data transmission from terminal to cloud with end-to-end encryption.',
     tags: ['Embedded', 'IoT', 'Hardware'],
     icon: Shield,
+    github: 'https://github.com/Darknight4433/SafeSpeak', // Example if known, otherwise fallback
   },
   {
     name: 'OMNIS',
@@ -62,7 +63,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="work" className="py-24 bg-secondary/30">
+    <section id="work" className="py-24 bg-secondary/30 relative">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -118,14 +119,19 @@ const Projects = () => {
               </div>
 
               <div className="flex gap-4 mt-auto">
-                <button className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline">
+                <button disabled className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary cursor-not-allowed opacity-50">
                   <ExternalLink className="w-3.5 h-3.5" />
                   Case Study
                 </button>
-                <button className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground">
+                <a
+                  href={project.github || "https://github.com/Darknight4433"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary transition-colors"
+                >
                   <Github className="w-3.5 h-3.5" />
                   GitHub
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
@@ -140,7 +146,7 @@ const Projects = () => {
           <p className="text-muted-foreground text-sm">
             More experimental and open-source projects are available on my{' '}
             <a
-              href="#"
+              href="https://github.com/Darknight4433"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline transition-all"

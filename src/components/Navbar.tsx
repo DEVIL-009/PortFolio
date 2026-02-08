@@ -1,36 +1,26 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Linkedin, Github, Gamepad2 } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Recognition', href: '#recognition' },
-  { name: 'Work', href: '#work' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Recognition', href: '/recognition' },
+  { name: 'Work', href: '/#work' },
+  { name: 'Contact', href: '/#contact' },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Find active section
-      const sections = navItems.map(item => item.href.slice(1));
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -39,111 +29,113 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.getElementById(href.slice(1));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('/#')) {
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(href.replace('/#', ''));
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        const element = document.getElementById(href.replace('/#', ''));
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(href);
     }
+  };
+
+  const handleCopyDiscord = () => {
+    navigator.clipboard.writeText('deva_nandan_09');
+    toast.success('Discord username copied to clipboard!');
   };
 
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
-        animate={{ y: isScrolled ? 0 : -100 }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
-        className="fixed top-0 left-0 right-0 z-50 navbar-glass"
+        animate={{
+          y: 0,
+          width: isScrolled ? 'auto' : '100%',
+          top: isScrolled ? '1rem' : '0',
+          borderRadius: isScrolled ? '9999px' : '0',
+          backgroundColor: isScrolled ? 'rgba(var(--background), 0.8)' : 'transparent',
+          backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+          border: isScrolled ? '1px solid rgba(255,255,255,0.1)' : 'none',
+          padding: isScrolled ? '0.75rem 1.5rem' : '1.5rem 2rem',
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className={`fixed left-1/2 -translate-x-1/2 z-50 flex items-center justify-between transition-all duration-300 ${isScrolled
+            ? 'glass-card shadow-lg max-w-5xl'
+            : 'max-w-[100vw]'
+          }`}
+        style={{
+          backgroundColor: isScrolled ? 'hsl(var(--background) / 0.8)' : 'transparent',
+        }}
       >
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <a href="#home" className="font-display text-xl font-bold text-foreground">
-              Deva Nandan S
-            </a>
+        <button
+          onClick={() => handleNavClick('/')}
+          className={`font-display font-bold text-foreground transition-all duration-300 ${isScrolled ? 'text-xl mr-8' : 'text-2xl tracking-widest uppercase'
+            }`}
+        >
+          Deva Nandan S
+        </button>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className={`relative text-sm font-medium transition-colors duration-200 ${activeSection === item.href.slice(1)
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                >
-                  {item.name}
-                  {activeSection === item.href.slice(1) && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <div className="hidden md:block">
-              <button
-                onClick={() => handleNavClick('#contact')}
-                className="btn-ghost text-sm"
-              >
-                Let's Work
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
+        <div className="hidden md:flex items-center gap-8">
+          {navItems.map((item) => (
             <button
-              className="md:hidden text-foreground p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              key={item.name}
+              onClick={() => handleNavClick(item.href)}
+              className={`text-sm font-medium transition-colors duration-200 hover:text-primary ${isScrolled ? 'text-muted-foreground' : 'text-foreground/80 uppercase tracking-wide'
+                }`}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {item.name}
+            </button>
+          ))}
+        </div>
+
+        <div className="hidden md:flex items-center gap-4 ml-8">
+          <div className="flex items-center gap-3 border-r border-border/50 pr-4">
+            <a
+              href="https://linkedin.com/in/deva-nandan-s"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a
+              href="https://github.com/Darknight4433"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Github size={18} />
+            </a>
+            <button
+              onClick={handleCopyDiscord}
+              className="text-muted-foreground hover:text-primary transition-colors"
+              title="Copy Discord Username"
+            >
+              <Gamepad2 size={18} />
             </button>
           </div>
+          <button
+            onClick={() => handleNavClick('/#contact')}
+            className={`btn-primary text-sm ${isScrolled ? 'px-4 py-2' : 'px-6 py-2.5'}`}
+          >
+            Let's Work
+          </button>
         </div>
+
+        <button
+          className="md:hidden text-foreground p-2 ml-auto"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </motion.nav>
 
-      {/* Visible Navbar for top of page */}
-      <motion.nav
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isScrolled ? 0 : 1 }}
-        className="fixed top-0 left-0 right-0 z-40 pointer-events-none"
-        style={{ pointerEvents: isScrolled ? 'none' : 'auto' }}
-      >
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <a href="#home" className="font-display text-xl font-bold text-foreground pointer-events-auto">
-              Deva Nandan S
-            </a>
-
-            <div className="hidden md:flex items-center gap-8 pointer-events-auto">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => handleNavClick('#contact')}
-              className="hidden md:block btn-ghost text-sm pointer-events-auto"
-            >
-              Let's Work
-            </button>
-
-            <button
-              className="md:hidden text-foreground p-2 pointer-events-auto"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <Menu size={24} />
-            </button>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -151,46 +143,57 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 md:hidden"
+            className="fixed inset-0 z-40 md:hidden bg-background/95 backdrop-blur-xl pt-24 px-6"
           >
-            <div className="absolute inset-0 bg-background/95 backdrop-blur-xl">
-              <div className="container mx-auto px-6 py-6">
-                <div className="flex items-center justify-between mb-12">
-                  <span className="font-display text-xl font-bold text-foreground">
-                    Deva Nandan S
-                  </span>
-                  <button
-                    className="text-foreground p-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
+            <div className="flex flex-col gap-6 items-center">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-2xl font-display font-semibold text-foreground hover:text-primary transition-colors uppercase tracking-widest"
+                >
+                  {item.name}
+                </motion.button>
+              ))}
 
-                <div className="flex flex-col gap-6">
-                  {navItems.map((item, index) => (
-                    <motion.button
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      onClick={() => handleNavClick(item.href)}
-                      className="text-2xl font-display font-semibold text-foreground text-left hover:text-primary transition-colors"
-                    >
-                      {item.name}
-                    </motion.button>
-                  ))}
-                  <motion.button
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    onClick={() => handleNavClick('#contact')}
-                    className="btn-primary text-lg mt-4 w-fit"
-                  >
-                    Let's Work
-                  </motion.button>
-                </div>
+              <div className="flex gap-6 mt-8">
+                <a
+                  href="https://linkedin.com/in/deva-nandan-s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-secondary rounded-full text-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <Linkedin size={24} />
+                </a>
+                <a
+                  href="https://github.com/Darknight4433"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-secondary rounded-full text-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <Github size={24} />
+                </a>
+                <button
+                  onClick={handleCopyDiscord}
+                  className="p-3 bg-secondary rounded-full text-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                  title="Copy Discord Username"
+                >
+                  <Gamepad2 size={24} />
+                </button>
               </div>
+
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                onClick={() => handleNavClick('/#contact')}
+                className="btn-primary text-lg mt-4 px-8 py-3"
+              >
+                Let's Work
+              </motion.button>
             </div>
           </motion.div>
         )}
