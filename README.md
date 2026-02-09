@@ -33,4 +33,4 @@ View the live site here: https://deva-nandan-s.onrender.com/
 - **GitHub**: [DEVIL-009](https://github.com/DEVIL-009)
 
 ---
-*Built with React, Vite, and ❤️ by Deva Nandan S.*
+*Built with React, Vite, by Deva Nandan S.*
